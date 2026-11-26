@@ -33,3 +33,7 @@ The item may use the `VANILLA` repair cost mode: previous anvil work increases t
 ## How do I use Mending?
 
 Remove the armor from the animal, hold it in your main hand or offhand, and collect experience orbs.
+
+## Need help?
+
+If you have questions or something is not working, contact **`vancorl`** on Discord. Describe the issue and include your Minecraft version. If the console shows an error, include its text.
