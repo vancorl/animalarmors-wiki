@@ -6,10 +6,10 @@ module.exports = {
   url: owner ? `https://${owner}.github.io` : 'https://example.org',
   baseUrl: owner ? `/${repository}/` : '/',
   onBrokenLinks: 'throw',
-  i18n: {defaultLocale: 'ru', locales: ['ru']},
+  i18n: {defaultLocale: 'ru', locales: ['ru', 'en'], localeConfigs: {ru: {label: 'Русский', htmlLang: 'ru'}, en: {label: 'English', htmlLang: 'en'}}},
   presets: [['classic', {docs: {routeBasePath: '/', sidebarPath: './sidebars.js'}, blog: false, theme: {customCss: './src/css/custom.css'}}]],
   themeConfig: {
-    navbar: {title: 'AnimalArmors', logo: {alt: 'AnimalArmors', src: 'img/logo.svg'}, items: [{type:'docSidebar',sidebarId:'docs',label:'Вики',position:'left'}]},
+    navbar: {title: 'AnimalArmors', logo: {alt: 'AnimalArmors', src: 'img/logo.svg'}, items: [{type:'docSidebar',sidebarId:'docs',label:'Вики',position:'left'}, {type:'localeDropdown',position:'right'}]},
     footer: {style: 'dark', copyright: 'AnimalArmors — документация плагина'},
     prism: {additionalLanguages: ['yaml','java','bash']},
     colorMode: {respectPrefersColorScheme: true}
