@@ -2,11 +2,11 @@
 title: Свои предметы и модели
 ---
 
-Каталоги находятся в `plugins/AnimalArmors/`: определения в `items/`, модели в `models/`, иконки в `textures/`. Разрешены подпапки. ItemsAdder не требуется.
+Каждый предмет описывается в YAML: там задаются имя, модель, животное, защита и прочность. Файлы предметов лежат в `plugins/AnimalArmors/items/`.
 
-## Минимальный предмет
+## Пример: новая броня волка
 
-Создайте `items/my_collection.yml`. Пример использует собственные файлы `models/wolf/moon.bbmodel` и `textures/wolf/moon.png` — предварительно добавьте их.
+Создайте `plugins/AnimalArmors/items/moon.yml` и вставьте пример целиком. Он использует модель и иконку готовой алмазной брони — дополнительные файлы для этого примера не нужны.
 
 ```yaml
 items:
@@ -14,35 +14,70 @@ items:
     display:
       name: "<aqua>Лунный доспех"
       lore:
-        - "<gray>Коллекция лунного стража"
+        - "<gray>Броня лунного стража"
     resource:
       material: "WOLF_ARMOR"
-      model: "wolf/moon.bbmodel"
-      item_texture: "wolf/moon.png"
+      model: "wolf/diamond_flat.bbmodel"
+      item_texture: "wolf/diamond_flat.png"
     equipment:
       animal: "WOLF"
     protection:
-      mode: "VANILLA"
-      armor: 0
-      armor_toughness: 0
+      mode: "CUSTOM"
+      armor: 15
+      armor_toughness: 2
       durability:
         max: 500
         unbreakable: false
     attributes:
-      max_health: 2
+      max_health: 0
       movement_speed: 0
 ```
 
-Выполните `/aa reload`, затем `/aa give Steve wolf moon_wolf`.
+Сохраните файл и выполните:
 
-## Правила
+```text
+/aa reload
+/aa give Steve wolf moon_wolf
+```
 
-- ID: строчные латинские буквы, цифры и `_`; уникален во всех файлах. При обновлении сохраняйте ID.
-- В одном `items:` может быть несколько предметов. Блок `info` не обязателен.
-- `resource.model` — путь относительно `models/`; текстуры экипировки встроены в BBModel.
-- `item_texture` — путь к иконке относительно `textures/`; допускается также BBModel для 3D-предмета.
-- Сохраняйте штатные кости и pivots шаблона. Добавляйте детали дочерними группами.
+Замените `Steve` своим ником. Получится отдельный предмет с новым именем и характеристиками, но с видом алмазной брони.
 
-Для CUSTOM волка в YAML остаётся `WOLF_ARMOR`, но физический материал предмета — `LEATHER_HORSE_ARMOR` с волчьими компонентами. Учитывайте это в сторонних плагинах, проверяющих Material. VANILLA использует настоящую волчью броню.
+## Поля предмета
 
-После изменения модели проверьте посадку и анимации в Minecraft. Успешная пересборка не гарантирует правильный внешний вид.
+| Поле | Что означает |
+| --- | --- |
+| `moon_wolf` | Уникальный ID. Используйте строчные латинские буквы, цифры и `_`. |
+| `display.name` | Имя предмета в игре. |
+| `display.lore` | Строки описания под именем. |
+| `resource.material` | Материал Minecraft, указанный в настройках предмета. Для волка — `WOLF_ARMOR`. |
+| `resource.model` | Модель надетой брони. Путь от папки `models/`. |
+| `resource.item_texture` | Иконка предмета. PNG ищется в `textures/`; для 3D-иконки можно указать BBModel. |
+| `equipment.animal` | Животное: `WOLF`, `HORSE`, `LLAMA`, `TRADER_LLAMA`, `NAUTILUS` или `ZOMBIE_NAUTILUS`. |
+| `durability.max` | Максимальная прочность брони. |
+| `durability.unbreakable` | `true` — броня не ломается, `false` — расходует прочность. |
+
+`durability` находится внутри `protection`, как в примере. В одном `items:` можно описать несколько предметов. ID не должны повторяться в разных файлах.
+
+## Защита волка: два режима
+
+- **`CUSTOM`** — сила защиты задаётся значениями `armor` и `armor_toughness`. Удобно для своей системы улучшений.
+- **`VANILLA`** — используется обычная механика волчьей брони Minecraft. Это другой режим защиты, а не режим стоимости починки.
+
+Режим цены ремонта задаётся отдельно: [починка на наковальне](progression.md#починка-на-наковальне).
+
+## Как поставить свою модель
+
+1. Откройте подходящую модель из папки `models/` в Blockbench и сохраните копию под новым именем.
+2. Измените внешний вид. Сохраняйте структуру групп и точки вращения исходной модели, чтобы детали двигались вместе с животным.
+3. Сохраните текстуры внутри файла `.bbmodel`.
+4. Положите модель, например, в `models/wolf/moon.bbmodel`, а PNG-иконку — в `textures/wolf/moon.png`.
+5. Замените пути в `resource`:
+
+```yaml
+resource:
+  material: "WOLF_ARMOR"
+  model: "wolf/moon.bbmodel"
+  item_texture: "wolf/moon.png"
+```
+
+Выполните `/aa reload` и примите обновлённый ресурспак. Настройку крафта, улучшения и ремонта смотрите в [примерах рецептов](progression.md).
