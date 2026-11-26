@@ -1,0 +1,1 @@
+module.exports = {docs: ['intro', {type:'category',label:'Начало работы',items:['installation','catalog','commands']}, {type:'category',label:'Настройка',items:['configuration','progression','authoring']}, 'faq']};
