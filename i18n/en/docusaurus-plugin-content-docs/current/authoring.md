@@ -42,6 +42,8 @@ Save the file, then run:
 
 Replace `Steve` with your username. You now have a separate item with its own name and stats, using the diamond armor appearance.
 
+To obtain `moon_wolf` by upgrading diamond armor, add `smithing` to this same item using the [complete smithing example](progression.md#custom-smithing-recipe). It also covers ingredients, upgrade chains and other animals.
+
 ## Item fields
 
 | Field | Meaning |

@@ -47,10 +47,6 @@ Reloads settings, messages, items and recipes. It also builds an updated resourc
 
 Run this after editing YAML files or models. Restart the server after replacing the JAR.
 
-## Display scene
-
-`/aa scene all` creates a scene for viewing armor, `/aa scene animate` enables animation, and `/aa scene clear` removes the scene.
-
 ## Permissions
 
 Commands require **`animalarmors.admin`**, granted to server operators by default. Regular players do not need this permission to use armor they have received.
